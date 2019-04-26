@@ -11,21 +11,28 @@ export function request(config) {
   return service.get(config.endpoint, config)
 }
 
-export function requestResource(resource) {
-  const config = getResourceConfig(resource)
+export function requestResource(resource, params) {
+
+  // get config and formatter for requested resource
+  const config = getResourceConfig(resource, params)
   const formatter = getResourceFormatter(resource)
 
+  // set up intercepter to format response
+  setFormatterIntercepter(formatter)
+
+  return request(config)
+}
+
+
+function setFormatterIntercepter(formatter) {
   service.interceptors.response.use(
-    async response => {
-      try {
-        return await formatter(response)
-      }
-      catch(error) {
-        return Promise.reject(error)
-      }
+    response => {
+      return new Promise((resolve, reject) => {
+        formatter(response)
+          .then(resolve)
+          .catch(reject)
+      })
     },
     error => Promise.reject(error),
   )
-
-  return request(config)
 }

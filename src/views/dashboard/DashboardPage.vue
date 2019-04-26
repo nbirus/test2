@@ -1,22 +1,30 @@
 <template>
   <div class="page dashboard-page">
-    TEST
+    <async-data-wrapper 
+      ref="ref"
+      resource="patients" 
+      :params="params"
+      v-slot="{ _state }" 
+    >
+      <state-handler v-bind="_state">
+        <!-- <div slot="loading">asdfasdf</div> -->
+        <div slot="error">Error</div>
+        <div>Response</div>
+      </state-handler>
+    </async-data-wrapper>
   </div>
 </template>
 
 <script>
-import { requestResource } from '@/services/RequestService'
 export default {
   name: 'dashboard-page',
-  async mounted() {
-    try {
-      const response = await requestResource('patients')
-      console.log('RESPONSE');
-      console.log(response);
+  data() {
+    return {
+      params: {
+        id: undefined
+      }
     }
-    catch(error) {
-    }
-  }
+  },
 }
 </script>
 

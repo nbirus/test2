@@ -1,16 +1,16 @@
 export default {
 
   patients: {
-    query: () => ({
-      // endpoint: 'patients',
+    query: (params) => ({
+      endpoint: params.id,
     }),
     formatter: (response) => {
-      return response.data
-    }
+      return JSON.parse(response)
+    },
   },
 
   test: {
-    query: () => ({
+    query: (params) => ({
       endpoint: 'test',
     }),
   },
