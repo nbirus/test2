@@ -6,7 +6,7 @@
         <div key="error" slot="error">Error</div>
         <div>
           {{$h.get(_state, 'response.data')}}
-          <btn>Refresh</btn>
+          <btn v-ripple>Refresh</btn>
         </div>
       </state-handler>
     </async-data-wrapper>
@@ -14,11 +14,8 @@
 </template>
 
 <script>
-import clipboard from '@/directives/clipboard';
-
 export default {
   name: 'dashboard-page',
-  directives: { clipboard },
   data() {
     return {
       params: {

@@ -1,3 +1,5 @@
+// https://github.com/PanJiaChen/vue-element-admin
+
 /* eslint-disable */
 export default function openWindow(url, title, w, h) {
 

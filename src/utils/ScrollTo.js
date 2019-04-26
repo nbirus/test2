@@ -1,3 +1,5 @@
+// https://github.com/PanJiaChen/vue-element-admin
+
 /* eslint-disable */
 Math.easeInOutQuad = function(t, b, c, d) {
   t /= d / 2
