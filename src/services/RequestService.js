@@ -3,8 +3,8 @@ import { getResourceConfig, getResourceFormatter } from '@/services/ResourceServ
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
-  timeout: 5000,
+  // baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: 'http://dummy.restapiexample.com/api/v1/',
 })
 
 export function request(config) {

@@ -1,6 +1,9 @@
 import { request, requestResource } from '@/services/RequestService'
 
 export default {
+  props: {
+    keepResponseAlive: Boolean,
+  },
   data() {
     return {
       DataMixin_state: {
@@ -8,7 +11,6 @@ export default {
         loading: true,
         error: undefined,
       },
-      DataMixin_keepResponseAlive: false,
     }
   },
   methods: {
@@ -21,7 +23,7 @@ export default {
         .catch(this.$requestError)
     },
 
-    // preset 'requests'
+    // preset 'requests' method, provide a resource along with any additional parmas
     async $requestResource(resource, params) {
       this.$setState()
       return requestResource(resource, params)
@@ -37,21 +39,11 @@ export default {
     },
 
     // set state, set to new ref to trigger watchers
-    $setState(response = undefined, loading = true, error = undefined) {
+    $setState(response = this.DataMixin_state.response, loading = true, error = undefined) {
       this.DataMixin_state = {
-        response: this.$getResponse(response),
+        response,
         loading,
         error,
-      }
-    },
-    
-    // don't set response to undefined if keepAlive is specified
-    $getResponse(response) {
-      if (this.DataMixin_keepResponseAlive && this.DataMixin_state.response !== undefined) {
-        return this.DataMixin_state.response
-      }
-      else {
-        return response
       }
     },
 

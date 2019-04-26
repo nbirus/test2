@@ -1,12 +1,12 @@
 <template>
-  <transition name="fade" mode="out-in">
+  <transition :name="transitionName" mode="out-in">
 
     <!-- loading -->
-    <loading-slot v-if="loadingCondition && loadingDefault"></loading-slot>
+    <default-loading v-if="loadingCondition && loadingDefault"></default-loading>
     <slot v-else-if="loadingCondition" name="loading"></slot>
 
     <!-- error -->
-    <error-slot v-else-if="errorCondition && errorDefault"></error-slot>
+    <default-error :error="error" v-else-if="errorCondition && errorDefault"></default-error>
     <slot v-else-if="errorCondition" name="error"></slot>
 
     <!-- response -->
@@ -16,23 +16,33 @@
 </template>
 
 <script>
-import LoadingSlot from './Loading'
-import ErrorSlot from './Error'
+import DefaultLoading from './Loading'
+import DefaultError from './Error'
 
 export default {
   name: 'state-handler',
-  components: { LoadingSlot, ErrorSlot },
+  components: { DefaultLoading, DefaultError },
   props: {
     response: Object,
     loading: Boolean,
     error: [String, Error],
     ignoreLoading: Boolean,
     ignoreError: Boolean,
+    keepResponseAlive: Boolean,
+    transitionName: {
+      type: String,
+      default: 'fade'
+    },
   },
   computed: {
 
     loadingCondition() {
-      return !this.ignoreLoading && this.loading
+      if (this.keepResponseAlive && this.hasResponse) {
+        return false
+      }
+      else {
+        return !this.ignoreLoading && this.loading
+      }
     },
     errorCondition() {
       return !this.ignoreError && this.error !== undefined
@@ -44,6 +54,9 @@ export default {
     errorDefault() {
       return !this.$slots.hasOwnProperty('error')
     },
+    hasResponse() {
+      return this.$h.truthy(this.response)
+    }
 
   },
 }

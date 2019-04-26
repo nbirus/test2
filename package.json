@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "clipboard": "^2.0.4",
     "core-js": "^2.6.5",
     "element-ui": "^2.7.2",
     "lodash": "^4.17.11",
+    "node-slack": "0.0.7",
     "normalize.css": "^8.0.1",
     "simple-web-worker": "^1.2.0",
     "vue": "^2.6.10",

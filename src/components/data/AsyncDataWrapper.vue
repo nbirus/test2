@@ -10,10 +10,9 @@ export default {
     params: Object,
     config: Object,
     noCallOnMount: Boolean,
-    keepResponseAlive: Boolean,
     debounce: {
       type: Number,
-      default: 1000,
+      default: 10,
     },
   },
   data() {
@@ -24,10 +23,9 @@ export default {
   computed: {
     useResource() {
       return this.resource !== undefined
-    }
+    },
   },
   created() {
-    this.DataMixin_keepResponseAlive = this.keepResponseAlive
     this.createRequest()
   },
   mounted() {
@@ -47,7 +45,8 @@ export default {
       this.request = debounce(requestFunction, this.debounce)
     },
     makeRequest() {
-      // get correct paramaters
+
+      // set up paramaters, pass extra params if they're using a resoure
       const params = this.useResource
         ? [this.resource, this.params]
         : [this.config]
@@ -60,6 +59,7 @@ export default {
     if (this.$scopedSlots.default !== undefined) {
       return this.$scopedSlots.default({
         _state: this.DataMixin_state,
+        _refresh: this.makeRequest,
       })
     } 
     else {

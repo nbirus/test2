@@ -10,7 +10,7 @@ export default {
   },
 
   test: {
-    query: (params) => ({
+    query: () => ({
       endpoint: 'test',
     }),
   },

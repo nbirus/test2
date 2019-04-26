@@ -29,16 +29,16 @@ function formatterWorker(resource, response, formatter) {
 
     // most message, stringify message for worker
     worker.postMessage(resource, [JSON.stringify(response)])
-      .then(response => {
-        resolve(response)
-        worker.unregister(resource)
-      })
+      .then(resolve)
       .catch(reject)
+
+    // unregister worker
+    worker.unregister(resource)
 
   })
 }
 
 // used if no default formatter is set
 function defaultFormatter(response) {
-  return response
+  return JSON.parse(response)
 }
