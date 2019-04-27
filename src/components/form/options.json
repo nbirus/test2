@@ -1,0 +1,9 @@
+{
+  "boolean": {
+    "label": "Yes or No",
+    "options": [
+      { "label": "Yes", "value": true },
+      { "label": "No", "value": false }
+    ]
+  }
+}

@@ -1,10 +1,19 @@
 <template>
-  <div class="page dashboard-page"></div>
+  <div class="page dashboard-page">
+    <pre>{{TestModel}}</pre>
+  </div>
 </template>
 
 <script>
+import { TestForm, TestModel } from '@/components/form/forms/TestForm'
+
 export default {
-  name: 'dashboard-page',
+  name: 'patients-page',
+  data() {
+    return {
+      TestModel
+    }
+  }
 }
 </script>
 
