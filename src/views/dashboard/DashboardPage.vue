@@ -13,21 +13,28 @@
         </div>
       </state-handler>
     </async-data-wrapper> -->
-
+<!--         
+  :model.sync="model"
+  :active-model="activeModel"
+-->
     <div class="form-contain">
-      <form-generator 
+      <form-generator
+
         id="form"
         class="form"
+
         :form="form"
-        :model.sync="model"
-        :active-model="activeModel"
+        :activeModel="activeModel"
+        v-model="model"
+
         @submit="submit"
         @invalid="invalid"
         @reset="reset"
+
       ></form-generator>
       <div class="values"></div>
       <code class="output">
-        <pre v-html="form"></pre>
+        <pre v-html="model"></pre>
       </code>
     </div>
 
@@ -53,6 +60,7 @@ export default {
   },
   methods: {
     submit(result, model) {
+      console.log('submit');
       this.activeModel = this.$h.cloneDeep(model)
     },
     invalid(test) {

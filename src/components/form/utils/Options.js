@@ -1,6 +1,6 @@
 import Options from '../options'
 
-function getOptions(key) {
+export function getOptions(key) {
   try {
     return Options[key].options
   }
@@ -9,14 +9,9 @@ function getOptions(key) {
   }
 }
 
-function getOption(key, value, accessKey = 'label') {
+export function getOption(key, value, accessKey = 'label') {
   if (typeof value !== 'string') {
     return value
   }
   return getOptions(key).find(option => option[accessKey] === value)
-}
-
-export default {
-  getOptions,
-  getOption,
 }

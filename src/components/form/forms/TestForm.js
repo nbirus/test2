@@ -1,4 +1,30 @@
 export const TestForm = [
+  // {
+  //   input: 'form',
+  //   id: 'form',
+  //   label: 'Form Input',
+  //   inputProps: {
+  //     id: 'form-nested',
+  //     hideActions: true,
+  //     validateOnRuleChange: false,
+  //     form: [
+  //       {
+  //         input: 'text',
+  //         id: 'text',
+  //         label: 'text Input',
+  //         inputProps: {
+  //           placeholder: 'placeholder',
+  //         },
+  //       },
+  //     ],
+  //   },
+  //   validations: [
+  //     {
+  //       validator: validatePass,
+  //       trigger: 'change'
+  //     }
+  //   ]
+  // },
   {
     input: 'text',
     id: 'text',
@@ -40,6 +66,18 @@ export const TestForm = [
 ]
 
 export const TestModel = {
+  form: {
+    text: 'test'
+  },
   text: 'test',
   select: [],
+}
+
+function validatePass(rule, value, callback) {
+  if (value.text === '') {
+    return callback(new Error(''));
+  }
+  else {
+    return callback()
+  }
 }
