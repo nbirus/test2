@@ -6,7 +6,7 @@
     <slot v-else-if="loadingCondition" name="loading"></slot>
 
     <!-- error -->
-    <default-error :error="error" v-else-if="errorCondition && errorDefault"></default-error>
+    <default-error :error="error" :refresh="refresh" v-else-if="errorCondition && errorDefault"></default-error>
     <slot v-else-if="errorCondition" name="error"></slot>
 
     <!-- response -->
@@ -26,6 +26,7 @@ export default {
     response: Object,
     loading: Boolean,
     error: [String, Error],
+    refresh: Function,
     ignoreLoading: Boolean,
     ignoreError: Boolean,
     keepResponseAlive: Boolean,

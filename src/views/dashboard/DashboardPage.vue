@@ -1,55 +1,69 @@
 <template>
   <div class="page dashboard-page">
 
-    <!-- <btn @click="$router.push({name: 'patients'})">patients</btn> -->
+    <!-- grid -->
+    <!-- <data-grid
+      :model="gridModel"
+      :headers="headers"
+    ></data-grid> -->
 
+    <!-- table -->
+    <!-- <data-table
+      :model="gridModel"
+      :headers="headers"
+      fit
+    ></data-table> -->
+
+    <!-- get data from an api -->
     <!-- <async-data-wrapper resource="patients" :params="params" v-slot="{ _state, _refresh }">
-      <state-handler v-bind="_state">
+      <state-handler v-bind="_state" :refresh="_refresh">
         <div key="loading" slot="loading">load</div>
         <div key="error" slot="error">Error</div>
-        <div>
-          {{$h.get(_state, 'response.data')}}
-          <btn v-ripple>Refresh</btn>
-        </div>
+        <div></div>
       </state-handler>
     </async-data-wrapper> -->
-<!--         
-  :model.sync="model"
-  :active-model="activeModel"
--->
-    <div class="form-contain">
-      <form-generator
 
-        id="form"
-        class="form"
-
-        :form="form"
-        :activeModel="activeModel"
-        v-model="model"
-
-        @submit="submit"
-        @invalid="invalid"
-        @reset="reset"
-
-      ></form-generator>
-      <div class="values"></div>
-      <code class="output">
-        <pre v-html="model"></pre>
-      </code>
-    </div>
+    <!-- form generator example -->
+    <!-- <form-generator
+      id="form"
+      class="form"
+      :form="form"
+      :activeModel="activeModel"
+      v-model="model"
+      @submit="submit"
+      @invalid="invalid"
+      @reset="reset"
+    ></form-generator> -->
 
   </div>
 </template>
 
 <script>
+import DataGrid from '@/components/presentation/grid/DataGrid'
+import DataTable from '@/components/presentation/grid/DataTable'
 import FormGenerator from '@/components/form/FormGenerator'
 import { TestForm, TestModel } from '@/components/form/forms/TestForm'
 
 export default {
   name: 'dashboard-page',
-  components: { FormGenerator },
+  components: { DataGrid, DataTable, FormGenerator },
   data() {
     return {
+      gridModel: [
+        { id: 'test', name: 'test_name' },
+        { id: 'test 2', name: 'test_name 2' },
+        { id: 'tes 3', name: 'test_name 3' },
+      ],
+      headers: [
+        {
+          field: 'id',
+          headerName: 'ID',
+        },
+        {
+          field: 'name',
+          headerName: 'NAME',
+        },
+      ],
       form: TestForm,
       model: TestModel,
       activeModel: this.$h.cloneDeep(TestModel),

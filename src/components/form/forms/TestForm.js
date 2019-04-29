@@ -1,30 +1,4 @@
 export const TestForm = [
-  // {
-  //   input: 'form',
-  //   id: 'form',
-  //   label: 'Form Input',
-  //   inputProps: {
-  //     id: 'form-nested',
-  //     hideActions: true,
-  //     validateOnRuleChange: false,
-  //     form: [
-  //       {
-  //         input: 'text',
-  //         id: 'text',
-  //         label: 'text Input',
-  //         inputProps: {
-  //           placeholder: 'placeholder',
-  //         },
-  //       },
-  //     ],
-  //   },
-  //   validations: [
-  //     {
-  //       validator: validatePass,
-  //       trigger: 'change'
-  //     }
-  //   ]
-  // },
   {
     input: 'text',
     id: 'text',
@@ -42,6 +16,7 @@ export const TestForm = [
       }
     ],
     setter(value, formModel) {
+      console.log(formModel);
       return value + 'wow'
     },
   }, 

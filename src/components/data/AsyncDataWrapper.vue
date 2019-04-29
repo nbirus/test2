@@ -24,6 +24,9 @@ export default {
     useResource() {
       return this.resource !== undefined
     },
+    updateWatcher() {
+      return this.resource, this.params, this.config
+    },
   },
   created() {
     this.createRequest()
@@ -34,7 +37,6 @@ export default {
     }
   },
   methods: {
-    
     createRequest() {
       // get correct request type
       const requestFunction = this.useResource
@@ -53,7 +55,9 @@ export default {
         
       this.request(...params)
     },
-
+  },
+  watch: {
+    'updateWatcher': 'makeRequest'
   },
   render() {
     if (this.$scopedSlots.default !== undefined) {

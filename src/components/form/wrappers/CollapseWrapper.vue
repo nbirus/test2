@@ -1,11 +1,11 @@
 <template>
-  <div class="collapse-wrapper" @click.self="toggle" :class="{ open, truthy: truthy }" tabindex="0">
+  <div class="collapse-wrapper" tabindex="0">
 
-    <div class="header" @click="toggle">
+    <!-- <div class="header" @click="toggle">
       <div class="label" v-html="label"></div>
       <div class="length" v-if="length" v-html="length"></div>
       <div class="collapser"><icon class="icon" icon="chevron-left"></icon></div>
-    </div>
+    </div> -->
   
     <!-- <collapse class="body" :id="label" v-model="open">
       <slot></slot>
@@ -15,36 +15,36 @@
 </template>
 
 <script>
-  // import Collapse from 'bootstrap-vue/es/components/collapse/collapse'
+// import Collapse from 'bootstrap-vue/es/components/collapse/collapse'
 
-  export default {
-    name: 'collapse-wrapper',
-    // components: { Collapse },
-    props: ['label', 'model'],
-    data() {
-      return {
-        open: false,
-      }
-    },
-    computed: {
-      truthy() {
-        return this.$h.truthy(this.model)
-      },
-      length() {
-        if (Array.isArray(this.model)) {
-          return this.model.length
-        }
-      }
-    },
-    created() {
-      this.open = this.truthy
-    },
-    methods: {
-      toggle() {
-        this.open = !this.open
-      }
-    },
-  }
+export default {
+  name: 'collapse-wrapper',
+  // // components: { Collapse },
+  // props: ['label', 'model'],
+  // data() {
+  //   return {
+  //     open: false,
+  //   }
+  // },
+  // computed: {
+  //   truthy() {
+  //     return this.$h.truthy(this.model)
+  //   },
+  //   length() {
+  //     if (Array.isArray(this.model)) {
+  //       return this.model.length
+  //     }
+  //   }
+  // },
+  // created() {
+  //   this.open = this.truthy
+  // },
+  // methods: {
+  //   toggle() {
+  //     this.open = !this.open
+  //   }
+  // },
+}
 </script>
 
 <style lang="scss" scoped>
