@@ -3,6 +3,7 @@
     <app-header></app-header>
     <app-body></app-body>
     <app-footer></app-footer>
+    <portal-target name="modal"></portal-target>
   </div>
 </template>
 

@@ -27,6 +27,9 @@ for (const directive in Directives) {
   Vue.directive(directive, Directives[directive])
 }
 
+// portal
+import PortalVue from 'portal-vue'
+Vue.use(PortalVue)
 
 Vue.config.productionTip = false
 

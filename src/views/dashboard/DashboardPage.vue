@@ -1,6 +1,10 @@
 <template>
   <div class="page dashboard-page">
 
+    <!-- modal -->
+    <!-- <modal :visible.sync="visible">
+    </modal> -->
+
     <!-- grid -->
     <!-- <data-grid
       :model="gridModel"
@@ -11,7 +15,6 @@
     <!-- <data-table
       :model="gridModel"
       :headers="headers"
-      fit
     ></data-table> -->
 
     <!-- get data from an api -->
@@ -43,12 +46,14 @@ import DataGrid from '@/components/presentation/grid/DataGrid'
 import DataTable from '@/components/presentation/grid/DataTable'
 import FormGenerator from '@/components/form/FormGenerator'
 import { TestForm, TestModel } from '@/components/form/forms/TestForm'
+import Modal from '@/components/utils/Modal'
 
 export default {
   name: 'dashboard-page',
-  components: { DataGrid, DataTable, FormGenerator },
+  components: { Modal, DataGrid, DataTable, FormGenerator },
   data() {
     return {
+      visible: true,
       gridModel: [
         { id: 'test', name: 'test_name' },
         { id: 'test 2', name: 'test_name 2' },
@@ -72,12 +77,18 @@ export default {
       },
     }
   },
+  mounted() {
+    setTimeout(() => {
+      this.visible = true
+    }, 1000)
+  },
   methods: {
     submit(result, model) {
-      console.log('submit');
       this.activeModel = this.$h.cloneDeep(model)
     },
     invalid(test) {
+      console.log('open');
+      console.log(test);
       
     },
     reset() {
@@ -88,7 +99,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .dashboard-page {
   padding: 3rem;
 }
