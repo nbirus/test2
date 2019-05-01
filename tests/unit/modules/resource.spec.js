@@ -26,7 +26,7 @@ describe('module:resource:service', () => {
     requestResource('test')
     expect(mockAxios.get).toHaveBeenCalledWith('test', { endpoint: 'test' })
 
-    requestResource('testWithParams', { test: 'test' })
+    requestResource('test-with-params', { test: 'test' })
     expect(mockAxios.get).toHaveBeenCalledWith('testWithParams', { endpoint: 'testWithParams', test: 'test' })
 
   })
@@ -90,5 +90,5 @@ describe('module:resource:component', () => {
   it('Formats resouce response', () => {
     
   })
-  
+
 })

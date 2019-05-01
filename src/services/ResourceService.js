@@ -1,18 +1,25 @@
 import Resources from '@/resources'
 import SWorker from 'simple-web-worker'
-import { get } from 'lodash'
+import { get, camelCase } from 'lodash'
 let worker = SWorker.create()
 
+/**
+ * @param {string} resource
+ * @param {object} params
+ */
 export function getResourceConfig(resource, params) {
-  const query = get(Resources, `${resource}.query`, () => {})
+  const query = get(Resources, `${camelCase(resource)}.query`, () => {})
   return query(params)
 }
 
+/**
+ * @param {string} resource
+ */
 export function getResourceFormatter(resource) {
   return response => formatterWorker(
     resource, 
     response,
-    get(Resources, `${resource}.formatter`, defaultFormatter),
+    get(Resources, `${camelCase(resource)}.formatter`, defaultFormatter),
   )
 }
 

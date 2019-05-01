@@ -31,6 +31,7 @@ export function requestResource(resource, params) {
   return request(config)
 }
 
+
 // helper
 function setFormatterIntercepter(formatter) {
   service.interceptors.response.use(

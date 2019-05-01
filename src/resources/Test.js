@@ -4,15 +4,17 @@ export default {
     query: () => ({
       endpoint: 'test',
     }),
-    formatter: (response) => {
-      return JSON.parse(response)
-    },
   },
 
-  testNoFormat: {
+  testFormat: {
     query: () => ({
-      endpoint: 'testNoFormat'
+      endpoint: 'testFormat'
     }),
+    formatter: () => {
+      return {
+        test: 'format',
+      }
+    },
   },
 
   testWithParams: {
