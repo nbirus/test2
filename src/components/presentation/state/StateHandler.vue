@@ -23,7 +23,7 @@ export default {
   name: 'state-handler',
   components: { DefaultLoading, DefaultError },
   props: {
-    response: Object,
+    response: [Object, Array],
     loading: Boolean,
     error: [String, Error],
     refresh: Function,

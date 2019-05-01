@@ -17,7 +17,7 @@ export default {
   components: { 
     AppHeader, 
     AppBody, 
-    AppFooter, 
+    AppFooter,
   },
 }
 </script>

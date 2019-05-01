@@ -9,10 +9,4 @@ export default {
     },
   },
 
-  test: {
-    query: () => ({
-      endpoint: 'test',
-    }),
-  },
-
 }

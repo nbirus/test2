@@ -26,6 +26,15 @@
       </state-handler>
     </async-data-wrapper> -->
 
+    <local-data-wrapper :model="gridModel" :params="params" v-slot="{ _state }">
+      <state-handler v-bind="_state">
+        <div key="loading-2" slot="loading">loadwut</div>
+        <div key="response">
+          <li v-for="item in _state.response" :key="item.id">{{item.id}}</li>
+        </div>
+      </state-handler>
+    </local-data-wrapper>
+
     <!-- form generator example -->
     <!-- <form-generator
       id="form"

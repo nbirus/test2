@@ -1,90 +1,100 @@
+import t from 'typy'
 import { truthy } from './CommonsService'
-import moment from 'moment'
+import { get } from 'lodash'
 
-// localeString
+/**
+ * 1000 -> '1,000'
+ * @param {number} value
+ */
 export function localeString(value) {
-  return (value && typeof value === 'number')
+  return (truthy(value) && t(value).isNumber)
     ? value.toLocaleString()
     : value
 }
 
-// titleCase
+/**
+ * 'test string' -> 'Test String'
+ * @param {string} value
+ */
 export function titleCase(value) {
-  try {
-    return (value)
-      ? value.replace(/\w\S*/g, txt => `${txt.charAt(0).toUpperCase()}${txt.substr(1).toLowerCase()}`)
-      : value
-  }
-  catch (error) {
-    return value
-  }
+  return validString(value)
+    ? value.replace(/\w\S*/g, txt => `${txt.charAt(0).toUpperCase()}${txt.substr(1).toLowerCase()}`)
+    : value
 }
 
-// replaceUnderscores
+/**
+ * 'test_string' -> 'title string'
+ * @param {string} value
+ */
 export function replaceUnderscores(value) {
-  return (value && value.length > 0) ? value.replace(/_/g, ' ') : value
+  return validString(value)
+    ? value.replace(/_/g, ' ') 
+    : value
 }
 
-// replaceDashes
+/**
+ * 'test-string' -> 'title string'
+ * @param {string} value
+ */
 export function replaceDashes(value) {
-  return (value && value.length > 0) ? value.replace(/-/g, ' ') : value
+  return validString(value) ? value.replace(/-/g, ' ') : value
 }
 
-// upperCase
+/**
+ * 'test string' -> 'TEST STRING'
+ * @param {string} value
+ */
 export function upperCase(value) {
-  try {
-    return (value) ? value.toUpperCase() : value
-  }
-  catch (error) {
-    return value
-  }
+  return validString(value) ? value.toUpperCase() : value
 }
 
-// lowerCase
+/**
+ * 'TEST STRING' -> 'test string'
+ * @param {string} value
+ */
 export function lowerCase(value) {
-  try {
-    return (value) ? value.toLowerCase() : value
-  }
-  catch (error) {
-    return value
-  }
+  return validString(value) ? value.toLowerCase() : value
 }
 
-// arrayToString
+/**
+ * [1, 2, 3] -> '1, 2, 3'
+ * @param {array} value
+ */
 export function arrayToString(value) {
-  return (Array.isArray(value) && value.length) ? value.join(', ') : value
+  return t(value).isArray && !t(value).isEmptyArray
+    ? value.join(', ') 
+    : value
 }
 
-// objectArrayToString
-export function objectArrayToString(value, key = 'value') {
-  try {
-    return (value.length) ? value.map(item => item[key]).join(', ') : value
-  }
-  catch (error) {
-    return value
-  }
+/**
+ * [{test: 'test'}, ...] -> 'test, ...'
+ * @param {array} value
+ * @param {string} path
+ */
+export function objectArrayToString(value, path = 'value') {
+  return t(value).isArray && !t(value).isEmptyArray
+    ? value.map(item => get(item, path)).join(', ') 
+    : value
 }
 
-// toYesNo
+/**
+ * true -> 'Yes'
+ * @param {any} value
+ */
 export function toYesNo(value) {
   return truthy(value) ? 'Yes' : 'No'
 }
 
-// abbreviate
+/**
+ * 'test string' -> 'test str...'
+ * @param {string} value
+ * @param {number} length
+ */
 export function abbreviate(value, length = 10) {
-  return (value && value.length > length) ? `${value.substr(0, length)}...` : value
+  return (validString(value) && value.length > length) ? `${value.substr(0, length)}...` : value
 }
 
-export function date(value, format = 'lll') {
-  try {
-    let date = Date.parse(value)
-    if (isNaN(date)) {
-      throw 'Invalid Date'
-    }
-    let momentDate = moment(value)
-    return momentDate.isValid() ? momentDate.format(format) : value
-  }
-  catch (error) {
-    return value
-  }
+// helper
+function validString(value) {
+  return (truthy(value) && t(value).isString)
 }
