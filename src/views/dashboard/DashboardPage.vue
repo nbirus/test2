@@ -1,6 +1,14 @@
 <template>
   <div class="page dashboard-page">
 
+    <!-- widget with anync data source -->
+    <!-- <async-data-wrapper resource="patients" :params="params" v-slot="{ _state, _refresh }">
+      <test-widget v-bind="_state"></test-widget>
+    </async-data-wrapper> -->
+
+    <!-- widget with local data source -->
+    <!-- <test-widget :response="gridModel"></test-widget> -->
+
     <!-- modal -->
     <!-- <modal :visible.sync="visible">
     </modal> -->
@@ -26,14 +34,14 @@
       </state-handler>
     </async-data-wrapper> -->
 
-    <local-data-wrapper :model="gridModel" :params="params" v-slot="{ _state }">
+    <!-- <local-data-wrapper :model="gridModel" :params="params" v-slot="{ _state }">
       <state-handler v-bind="_state">
         <div key="loading-2" slot="loading">loadwut</div>
         <div key="response">
           <li v-for="item in _state.response" :key="item.id">{{item.id}}</li>
         </div>
       </state-handler>
-    </local-data-wrapper>
+    </local-data-wrapper> -->
 
     <!-- form generator example -->
     <!-- <form-generator
@@ -55,11 +63,12 @@ import DataGrid from '@/components/presentation/grid/DataGrid'
 import DataTable from '@/components/presentation/grid/DataTable'
 import FormGenerator from '@/components/form/FormGenerator'
 import { TestForm, TestModel } from '@/components/form/forms/TestForm'
-import Modal from '@/components/utils/Modal'
+import Modal from '@/components/presentation/modal/Modal'
+import TestWidget from '@/components/presentation/widgets/TestWidget'
 
 export default {
   name: 'dashboard-page',
-  components: { Modal, DataGrid, DataTable, FormGenerator },
+  components: { TestWidget, Modal, DataGrid, DataTable, FormGenerator },
   data() {
     return {
       visible: true,

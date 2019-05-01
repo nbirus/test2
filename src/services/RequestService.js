@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { truthy } from '@/services/CommonsService'
 import { getResourceConfig, getResourceFormatter } from '@/services/ResourceService'
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -9,7 +10,9 @@ const service = axios.create({
  * @param {object} config
  */
 export function request(config) {
-  return service.get(config.endpoint, config)
+  if (truthy(config)) {
+    return service.get(config.endpoint, config)
+  }
 }
 
 /**

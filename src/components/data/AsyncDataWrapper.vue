@@ -4,6 +4,7 @@ import { debounce } from 'lodash'
 
 export default {
   name: 'asnyc-data-wrapper',
+  inheritAttrs: false,
   mixins: [RequestMixin],
   props: {
     resource: String,
@@ -39,7 +40,7 @@ export default {
   },
   methods: {
     createRequest() {
-      
+
       // get correct request type
       const requestFunction = this.useResource
         ? this.$requestResource
@@ -47,6 +48,7 @@ export default {
         
       // set debounce for request
       this.request = debounce(requestFunction, this.debounce)
+
     },
     makeRequest() {
       if (!this.disabled) {
