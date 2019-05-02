@@ -1,23 +1,26 @@
-<script>
-export default {
-  name: 'data-wrapper',
-  computed: {
+<template functional>
+  <component
+    :is="data.attrs.resource ? injections.components.AsyncDataWrapper : injections.components.LocalDataWrapper" 
+    v-bind="data.attrs" 
+    v-slot="{ _state, _refresh }"
+  >
+    <slot :_state="_state" :_refresh="_refresh"></slot>
+  </component>
+</template>
 
-  },
-  render() {
-    // if (this.$scopedSlots.default !== undefined) {
-    //   return this.$scopedSlots.default({
-    //     _state: {
-    //       response: {},
-    //       loading: false,
-    //       error: undefined,
-    //     },
-    //     _refresh: this.makeRequest,
-    //   })
-    // } 
-    // else {
-    //   return this.$slots
-    // }
-  },
+<script>
+import LocalDataWrapper from './LocalDataWrapper'
+import AsyncDataWrapper from './AsyncDataWrapper'
+
+export default {
+  inheritAttrs: false,
+  inject: {
+    components: {
+      default: {
+        LocalDataWrapper,
+        AsyncDataWrapper,
+      }
+    }
+  }
 }
 </script>

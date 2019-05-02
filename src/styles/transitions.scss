@@ -1,7 +1,33 @@
+
+// fade
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .2s ease-in-out, transform .2s ease-in-out;
+  transition: opacity .2s ease-in-out;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
-  transform: translateX(30px);
+}
+
+
+// expand
+.expand-enter-active,
+.expand-leave-active {
+  transition: transform .3s ease-in-out,
+              opacity .3s ease-in-out;
+}
+
+.expand-enter {
+  transform: translateY(15px);
+  opacity: 0;
+}
+.expand-enter-to {
+  transform: translateY(0);
+  opacity: 1;
+}
+.expand-leave {
+  transform: translateY(0);
+  opacity: 1;
+}
+.expand-leave-to {
+  transform: translateY(15px);
+  opacity: 0;
 }

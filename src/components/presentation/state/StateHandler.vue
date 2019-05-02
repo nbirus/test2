@@ -23,7 +23,7 @@ export default {
   name: 'state-handler',
   components: { DefaultLoading, DefaultError },
   props: {
-    response: [Object, Array],
+    data: [Object, Array],
     loading: Boolean,
     error: [String, Error],
     refresh: Function,
@@ -56,8 +56,8 @@ export default {
       return !this.$slots.hasOwnProperty('error')
     },
     hasResponse() {
-      return this.$h.truthy(this.response)
-    }
+      return this.$h.truthy(this.data)
+    },
 
   },
 }

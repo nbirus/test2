@@ -1,0 +1,19 @@
+.widget {
+  width: 100%;
+  height: 100%;
+  
+  background-color: white;
+  border: solid thin $n3;
+  padding: 2rem;
+  border-radius: .35rem;
+
+  &.expanded {
+    position: fixed;
+    top: 28%;
+    left: 50%;
+    margin: -200px 0 0 -200px;
+    width: 400px;
+    height: 400px;
+    box-shadow: 0 6px .75rem .05rem fade-out(black, .95);
+  }
+}

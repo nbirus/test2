@@ -4,7 +4,8 @@ import { debounce } from 'lodash'
 export default {
   name: 'local-data-wrapper',
   props: {
-    model: Array,
+    data: Array,
+    dataKey: String,
     params: Object,
     disabled: Boolean,
     debounce: {
@@ -15,7 +16,7 @@ export default {
   data() {
     return {
       request: undefined,
-      response: undefined,
+      filteredData: undefined,
       loading: false,
     }
   },
@@ -29,22 +30,27 @@ export default {
   },
   methods: {
     createRequest() {
-      this.request = debounce(this.$request, this.debounce)
+      this.request = debounce(this._request, this.debounce)
     },
     makeRequest() {
       if (!this.disabled) {
         this.request(this.params)
       }
     },
-    $request(params) {
-      this.response = this.$h.cloneDeep(this.model)
+    getData(data) {
+      return this.dataKey 
+        ? this.$h.get(data, this.dataKey)
+        : this.data
+    },
+    _request(params) {
+      this.filteredData = this.$h.cloneDeep(this.getData(this.data))
     },
   },
   render() {
     if (this.$scopedSlots.default !== undefined) {
       return this.$scopedSlots.default({
         _state: {
-          response: this.response,
+          data: this.filteredData,
           loading: this.loading,
           error: undefined,
         },

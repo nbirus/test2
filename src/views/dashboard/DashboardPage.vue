@@ -1,13 +1,23 @@
 <template>
   <div class="page dashboard-page">
 
-    <!-- widget with anync data source -->
-    <!-- <async-data-wrapper resource="patients" :params="params" v-slot="{ _state, _refresh }">
-      <test-widget v-bind="_state"></test-widget>
-    </async-data-wrapper> -->
+    <!-- widget with local data -->
+    <test-widget
+      class="test-class"
+      id="widget"
+      header="Widget Header"
+      :data="gridModel"
+    />
 
-    <!-- widget with local data source -->
-    <!-- <test-widget :response="gridModel"></test-widget> -->
+    <!-- widget with resource -->
+    <test-widget
+      id="widget"
+      header="Widget Header"
+      resource="patients"
+      :params="params"
+      data-key="data"
+    />
+
 
     <!-- modal -->
     <!-- <modal :visible.sync="visible">
@@ -26,22 +36,25 @@
     ></data-table> -->
 
     <!-- get data from an api -->
-    <!-- <async-data-wrapper resource="patients" :params="params" v-slot="{ _state, _refresh }">
+    <!-- <data-wrapper resource="patients" :params="params" v-slot="{ _state, _refresh }">
       <state-handler v-bind="_state" :refresh="_refresh">
         <div key="loading" slot="loading">load</div>
         <div key="error" slot="error">Error</div>
-        <div></div>
-      </state-handler>
-    </async-data-wrapper> -->
-
-    <!-- <local-data-wrapper :model="gridModel" :params="params" v-slot="{ _state }">
-      <state-handler v-bind="_state">
-        <div key="loading-2" slot="loading">loadwut</div>
-        <div key="response">
-          <li v-for="item in _state.response" :key="item.id">{{item.id}}</li>
+        <div>
+          
         </div>
       </state-handler>
-    </local-data-wrapper> -->
+    </data-wrapper> -->
+
+    <!-- search through data locally -->
+    <!-- <data-wrapper :data="gridModel" :params="params" v-slot="{ _state }">
+      <state-handler v-bind="_state">
+        <div key="loading-2" slot="loading">load</div>
+        <div key="response">
+          <li v-for="item in _state.data" :key="item.id">{{item.id}}</li>
+        </div>
+      </state-handler>
+    </data-wrapper> -->
 
     <!-- form generator example -->
     <!-- <form-generator

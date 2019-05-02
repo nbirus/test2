@@ -6,8 +6,8 @@ export default {
   },
   data() {
     return {
-      DataMixin_state: {
-        response: undefined,
+      RequestMixin_state: {
+        data: undefined,
         loading: true,
         error: undefined,
       },
@@ -31,20 +31,26 @@ export default {
         .catch(this.$requestError)
     },
 
-    $requestResolve(response) {
-      this.$setState(response, false, undefined)
+    $requestResolve(data) {
+      this.$setState(this.$getData(data), false, undefined)
     },
     $requestError(error) {
       this.$setState(undefined, false, error)
     },
 
     // set state, set to new ref to trigger watchers
-    $setState(response = this.DataMixin_state.response, loading = true, error = undefined) {
-      this.DataMixin_state = {
-        response,
+    $setState(data = this.RequestMixin_state.data, loading = true, error = undefined) {
+      this.RequestMixin_state = {
+        data,
         loading,
         error,
       }
+    },
+
+    $getData(data) {
+      return this.$h.truthy(this.dataKey)
+        ? this.$h.get(data, this.dataKey) 
+        : data
     },
 
   }

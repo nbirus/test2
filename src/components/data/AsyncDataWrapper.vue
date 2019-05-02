@@ -8,6 +8,7 @@ export default {
   mixins: [RequestMixin],
   props: {
     resource: String,
+    dataKey: String,
     params: Object,
     config: Object,
     noCallOnMount: Boolean,
@@ -68,10 +69,10 @@ export default {
   render() {
     if (this.$scopedSlots.default !== undefined) {
       return this.$scopedSlots.default({
-        _state: this.DataMixin_state,
+        _state: this.RequestMixin_state,
         _refresh: this.makeRequest,
       })
-    } 
+    }
     else {
       return this.$slots
     }
