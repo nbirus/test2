@@ -46,7 +46,7 @@ export default {
       }
     },
     errorCondition() {
-      return !this.ignoreError && this.error !== undefined
+      return !this.ignoreError && this.$h.truthy(this.error)
     },
 
     loadingDefault() {

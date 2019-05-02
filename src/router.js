@@ -7,13 +7,10 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-
     {
       path: '/',
       redirect: '/dashboard',
     },
-
-    // dashboard
     {
       path: '/dashboard',
       name: 'dashboard',
@@ -22,7 +19,6 @@ export default new Router({
         title: 'Dashboard',
       },
     },
-    // patients
     {
       path: '/patients',
       name: 'patients',
@@ -31,7 +27,6 @@ export default new Router({
         title: 'Patients',
       },
     },
-    // treatment arms
     {
       path: '/treatment-arms',
       name: 'treatment-arms',
@@ -40,7 +35,6 @@ export default new Router({
         title: 'Treatment Arms',
       },
     },
-    // specimen tracking
     {
       path: '/specimen-tracking',
       name: 'specimen-tracking',
@@ -49,7 +43,6 @@ export default new Router({
         title: 'Specimen Tracking',
       },
     },
-    // CLIA labs
     {
       path: '/labs',
       name: 'labs',
@@ -58,6 +51,5 @@ export default new Router({
         title: 'CLIA Labs',
       },
     },
-
-  ]
+  ],
 })
