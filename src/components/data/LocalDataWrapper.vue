@@ -8,6 +8,7 @@ export default {
     data: Array,
     dataKey: String,
     params: Object,
+    pagination: Object,
     disabled: Boolean,
     debounce: {
       type: Number,
@@ -24,7 +25,7 @@ export default {
   computed: {
     updateWatcher() {
       // watch for change in any of these
-      return JSON.stringify(this.params) + this.dataKey
+      return JSON.stringify(this.pagination) + JSON.stringify(this.params) + this.dataKey
     },
   },
   created() {
@@ -49,16 +50,31 @@ export default {
         ? this.$h.get(data, this.dataKey)
         : this.data
     },
+    paginate(data) {
+      if (this.$h.truthy(this.pagination)) {
+        return data.splice(this.pagination.from, this.pagination.size)
+      }
+      else return data
+    },
     async _request(params) {
-      const data = this.getData(this.data)
+      this.loading = true
       try {
-        this.loading = true
-        this.filteredData = await objectSearch(data, params)
+
+        // get data
+        let data = this.getData(this.data)
+        let filteredData = await objectSearch(data, params)
+        let paginatedData = this.paginate(filteredData)
+
+        this.$emit('resolve', {
+          data: paginatedData,
+          total: filteredData.length,
+        })
+        this.filteredData = paginatedData
         this.loading = false
       }
       catch(e) {
         console.log(e);
-        this.filteredData = data
+        this.filteredData = []
         this.loading = false
       }
     },

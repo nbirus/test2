@@ -38,7 +38,6 @@
       :form="form"
       :form-model="model"
       :inline="true"
-      max-height="70vh"
     />
 
     <!-- get data from an api -->
@@ -78,9 +77,9 @@
 </template>
 
 <script>
-import DataGrid from '@/components/presentation/grid/DataGrid'
-import DataTable from '@/components/presentation/grid/DataTable'
-import FilteredDataTable from '@/components/presentation/grid/FilteredDataTable'
+import DataGrid from '@/components/presentation/grid-table/base/DataGrid'
+import DataTable from '@/components/presentation/grid-table/base/DataTable'
+import FilteredDataTable from '@/components/presentation/grid-table/FilteredDataTable'
 import FormGenerator from '@/components/form/FormGenerator'
 import { TestForm, TestModel } from '@/components/form/forms/TestForm'
 import Modal from '@/components/presentation/modal/Modal'

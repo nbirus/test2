@@ -1,11 +1,15 @@
 <template>
-  <div class="pagination-bar">
-    <pagination
-      background
-      layout="prev, pager, next"
-      :total="total"
-    />
-  </div>
+  <pagination
+    layout="total, sizes, prev, pager, next, jumper"
+    background
+    hide-on-single-page
+    :current-page="page"
+    :page-sizes="[10, 20, 50, 100, 500]"
+    :page-size="size"
+    :total="total"
+    @size-change="$emit('pageSizeChange', $event)"
+    @current-change="$emit('pageChange', $event)"
+  />
 </template>
 
 <script>

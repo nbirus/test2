@@ -31,6 +31,11 @@ for (const directive in Directives) {
 import PortalVue from 'portal-vue'
 Vue.use(PortalVue)
 
+// lang
+import lang from 'element-ui/lib/locale/lang/en'
+import locale from 'element-ui/lib/locale'
+locale.use(lang)
+
 Vue.config.productionTip = false
 Vue.config.performance = false
 
