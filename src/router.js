@@ -20,6 +20,14 @@ export default new Router({
       },
     },
     {
+      path: '/style-guide',
+      name: 'style-guide',
+      component: () => import( /* webpackChunkName: "StyleGuide" */ '@/views/style-guide/StyleGuide.vue'),
+      meta: {
+        title: 'Style Guide',
+      },
+    },
+    {
       path: '/patients',
       name: 'patients',
       component: () => import(/* webpackChunkName: "PatientsPage" */ './views/patients/PatientsPage.vue'),

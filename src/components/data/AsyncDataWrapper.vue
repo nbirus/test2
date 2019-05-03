@@ -28,7 +28,10 @@ export default {
       return this.resource !== undefined
     },
     updateWatcher() {
-      return this.resource, this.params, this.config // watch for change in any of these
+      // watch for change in any of these
+      return this.resource 
+        + JSON.stringify(this.params) 
+        + JSON.stringify(this.config) 
     },
   },
   created() {

@@ -2,22 +2,21 @@
   <div class="page dashboard-page">
 
     <!-- widget with local data -->
-    <test-widget
+    <!-- <test-widget
       class="test-class"
       id="widget"
       header="Widget Header"
       :data="gridModel"
-    />
+    /> -->
 
     <!-- widget with resource -->
-    <test-widget
+    <!-- <test-widget
       id="widget"
       header="Widget Header"
       resource="patients"
       :params="params"
       data-key="data"
-    />
-
+    /> -->
 
     <!-- modal -->
     <!-- <modal :visible.sync="visible">
@@ -29,11 +28,16 @@
       :headers="headers"
     ></data-grid> -->
 
-    <!-- table -->
-    <!-- <data-table
-      :model="gridModel"
+    <!-- dynamic table -->
+    <filtered-data-table
+      :data='gridModel'
+      submit-on-mount
       :headers="headers"
-    ></data-table> -->
+      form-id="test"
+      :form="form"
+      :form-model="model"
+      :inline="true"
+    />
 
     <!-- get data from an api -->
     <!-- <data-wrapper resource="patients" :params="params" v-slot="{ _state, _refresh }">
@@ -74,30 +78,36 @@
 <script>
 import DataGrid from '@/components/presentation/grid/DataGrid'
 import DataTable from '@/components/presentation/grid/DataTable'
+import FilteredDataTable from '@/components/presentation/grid/FilteredDataTable'
 import FormGenerator from '@/components/form/FormGenerator'
 import { TestForm, TestModel } from '@/components/form/forms/TestForm'
 import Modal from '@/components/presentation/modal/Modal'
 import TestWidget from '@/components/presentation/widgets/TestWidget'
+import Static from '@/data/Static'
 
 export default {
   name: 'dashboard-page',
-  components: { TestWidget, Modal, DataGrid, DataTable, FormGenerator },
+  components: { TestWidget, Modal, DataGrid, DataTable, FormGenerator, FilteredDataTable },
   data() {
     return {
       visible: true,
-      gridModel: [
-        { id: 'test', name: 'test_name' },
-        { id: 'test 2', name: 'test_name 2' },
-        { id: 'tes 3', name: 'test_name 3' },
-      ],
+      gridModel: Static,
       headers: [
         {
           field: 'id',
           headerName: 'ID',
         },
         {
-          field: 'name',
-          headerName: 'NAME',
+          field: 'employee_age',
+          headerName: 'employee_age',
+        },
+        {
+          field: 'employee_name',
+          headerName: 'employee_name',
+        },
+        {
+          field: 'employee_salary',
+          headerName: 'employee_salary',
         },
       ],
       form: TestForm,

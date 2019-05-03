@@ -1,4 +1,5 @@
 <script>
+import { objectSearch } from '@/services/SearchService'
 import { debounce } from 'lodash'
 
 export default {
@@ -19,6 +20,12 @@ export default {
       filteredData: undefined,
       loading: false,
     }
+  },
+  computed: {
+    updateWatcher() {
+      // watch for change in any of these
+      return JSON.stringify(this.params) + this.dataKey
+    },
   },
   created() {
     this.createRequest()
@@ -42,9 +49,22 @@ export default {
         ? this.$h.get(data, this.dataKey)
         : this.data
     },
-    _request(params) {
-      this.filteredData = this.$h.cloneDeep(this.getData(this.data))
+    async _request(params) {
+      const data = this.getData(this.data)
+      try {
+        this.loading = true
+        this.filteredData = await objectSearch(data, params)
+        this.loading = false
+      }
+      catch(e) {
+        console.log(e);
+        this.filteredData = data
+        this.loading = false
+      }
     },
+  },
+  watch: {
+    'updateWatcher': 'makeRequest'
   },
   render() {
     if (this.$scopedSlots.default !== undefined) {

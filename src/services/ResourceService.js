@@ -1,7 +1,7 @@
 import Resources from '@/resources'
 import SWorker from 'simple-web-worker'
 import { get, camelCase } from 'lodash'
-let worker = SWorker.create()
+let resourceWorker = SWorker.create()
 
 /**
  * @param {string} resource
@@ -29,18 +29,18 @@ function formatterWorker(resource, response, formatter) {
   return new Promise((resolve, reject) => {
 
     // register formatter as web worker
-    worker.register({
+    resourceWorker.register({
       message: resource,
       func: formatter
     })
 
     // most message, stringify message for worker
-    worker.postMessage(resource, [JSON.stringify(response)])
+    resourceWorker.postMessage(resource, [JSON.stringify(response)])
       .then(resolve)
       .catch(reject)
 
     // unregister worker
-    worker.unregister(resource)
+    resourceWorker.unregister(resource)
 
   })
 }

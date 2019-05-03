@@ -1,39 +1,35 @@
 export const TestForm = [
   {
     input: 'text',
-    id: 'text',
+    id: 'id',
     label: 'Test Input',
     wrapper: 'default',
     wrapperProps: {},
     inputProps: {
       placeholder: 'placeholder',
     },
-    validations: [
-      {
-        required: true,
-        message: 'Please select Activity zone',
-        trigger: 'change'
-      }
-    ],
-    setter(value, formModel) {
-      console.log(formModel);
-      return value + 'wow'
-    },
+    // validations: [
+    //   {
+    //     required: true,
+    //     message: 'Please select Activity zone',
+    //     trigger: 'change'
+    //   }
+    // ],
   }, 
   {
     input: 'select',
-    id: 'select',
+    id: 'employee_age',
     label: 'Select Input',
     inputProps: {
       placeholder: 'placeholder',
       multiple: true,
       options: [{
-          label: 'asdfasdg',
-          value: 'select'
+          label: 'a',
+          value: 'a'
         },
         {
-          label: 'label 2',
-          value: 'select2'
+          label: 'c',
+          value: 'c'
         },
       ]
     },
@@ -41,11 +37,8 @@ export const TestForm = [
 ]
 
 export const TestModel = {
-  form: {
-    text: 'test'
-  },
-  text: 'test',
-  select: [],
+  id: '',
+  employee_age: [],
 }
 
 function validatePass(rule, value, callback) {

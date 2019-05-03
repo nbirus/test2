@@ -7,6 +7,8 @@
     :label-position="labelPosition || 'top'"
     v-bind="{
       validateOnRuleChange,
+      inline,
+      disabled,
     }"
   >
 
@@ -29,6 +31,7 @@
           :value="model[field.id]"
           @input="value => input(value, field.id)"
           @change="change"
+          @keyup.enter.native="submitForm"
         ></component>
       </form-item>
 
@@ -50,6 +53,7 @@ import Inputs from './inputs'
 
 export default {
   name: 'form-generator',
+  inheritAttrs: false,
   components: { 
     ElForm: Form,
     FormItem,
@@ -62,8 +66,10 @@ export default {
     model: Object,
     activeModel: Object,
     validateOnRuleChange: Boolean,
+    inline: Boolean,
     hideActions: Boolean,
     submitOnMount: Boolean,
+    disabled: Boolean,
     labelPosition: String,
   },
   model: {
@@ -103,7 +109,7 @@ export default {
       // recreate form with new values
       this.$nextTick(this.createForm)
 
-      // clear form validation, let form reset first
+      // clear form validation after form reset
       setTimeout(() => { this.formEvent('clearValidate')}, 5)      
 
     },
@@ -128,8 +134,8 @@ export default {
       }
     },
     formatModel() {
+      let formattedModel = {}
       const model = this.$h.cloneDeep(this.model)
-      const formattedModel = {}
       this.form.forEach(field => {
         formattedModel[field.id] = getFormattedValue(model[field.id], field, model)
       })

@@ -1,7 +1,7 @@
 <template>
   <el-table 
-    :data="model" 
     v-bind="{
+      data,
       height,
       stripe,
       border,
@@ -31,7 +31,7 @@ export default {
   },
   props: {
     id: String,
-    model: Array,
+    data: Array,
     headers: Array,
     height: String,
     size: String,
@@ -39,6 +39,7 @@ export default {
     fit: Boolean,
     border: Boolean,
     showSummary: Boolean,
+    loading: Boolean,
   },
 }
 </script>

@@ -2,7 +2,8 @@ export default {
 
   patients: {
     query: (params) => ({
-      endpoint: 'employees'
+      endpoint: 'employees',
+      params,
     }),
     formatter: (response) => {
       return JSON.parse(response)

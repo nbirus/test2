@@ -3,7 +3,7 @@
     ref="grid"
     class="ag-theme-balham biad-grid"
     :class="{ padding, empty }"
-    :row-data="model"
+    :row-data="data"
     :column-defs="activeHeaders"
     :grid-options="options"
     :quick-filter-text="quickFilterText"
@@ -26,7 +26,7 @@ export default {
   name: 'grid',
   components: { AgGridVue },
   props: {
-    model: {
+    data: {
       type: Array,
       default: () => [],
     },
@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     empty() {
-      return this.model.length === 0
+      return this.data.length === 0
     },
     columnWidth() {
       return this.$h.cloneDeep(this.headers).reduce((acc, value) => {

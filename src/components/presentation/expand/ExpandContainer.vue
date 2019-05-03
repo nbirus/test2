@@ -1,6 +1,7 @@
 <template functional>
-  <div class="expand-container">
+  <div>
 
+    <!-- backdrop -->
     <transition name="fade">
       <div 
         class="backdrop" 
@@ -10,6 +11,7 @@
       ></div>
     </transition>
 
+    <!-- slot -->
     <transition name="expand" mode="out-in">
       <div :class="[data.staticClass, data.class, { 'expanded': props.expanded }]" :key="props.expanded">
         <slot></slot>
@@ -20,9 +22,6 @@
 </template>
 
 <style lang="scss" scoped>
-.expand-container.expanded {
-  z-index: 100;
-}
 .backdrop {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;

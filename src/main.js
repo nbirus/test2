@@ -32,12 +32,10 @@ import PortalVue from 'portal-vue'
 Vue.use(PortalVue)
 
 Vue.config.productionTip = false
-Vue.config.performance = true
+Vue.config.performance = false
 
 new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
-
-// 12.59ms
