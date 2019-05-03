@@ -30,6 +30,7 @@
 
     <!-- dynamic table -->
     <filtered-data-table
+      class="table"
       :data='gridModel'
       submit-on-mount
       :headers="headers"
@@ -37,6 +38,7 @@
       :form="form"
       :form-model="model"
       :inline="true"
+      max-height="70vh"
     />
 
     <!-- get data from an api -->
@@ -127,13 +129,9 @@ export default {
     submit(result, model) {
       this.activeModel = this.$h.cloneDeep(model)
     },
-    invalid(test) {
-      console.log('open');
-      console.log(test);
-      
+    invalid() {
     },
     reset() {
-      
     },
   }
 }
@@ -152,5 +150,8 @@ export default {
   .values {
     flex: 0 0 300px;
   }
+}
+.table {
+  width: 100%;
 }
 </style>

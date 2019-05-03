@@ -1,12 +1,17 @@
 <template>
-  <el-table 
+  <el-table
+    style="width: 100%"
+    v-loading="loading"
+    empty-text="No Data Found"
     v-bind="{
       data,
       height,
+      width,
       stripe,
       border,
       size,
       fit,
+      maxHeight,
       showSummary,
     }"
   >
@@ -34,7 +39,9 @@ export default {
     data: Array,
     headers: Array,
     height: String,
+    width: String,
     size: String,
+    maxHeight: String,
     stripe: Boolean,
     fit: Boolean,
     border: Boolean,
@@ -43,7 +50,3 @@ export default {
   },
 }
 </script>
-
-<style>
-
-</style>

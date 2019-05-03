@@ -8,6 +8,7 @@
   border-radius: .35rem;
 
   &.expanded {
+    z-index: 100;
     position: fixed;
     top: 28%;
     left: 50%;

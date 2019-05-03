@@ -9,6 +9,30 @@
 
 
 // expand
+.fade-late-enter-active,
+.fade-late-leave-active {
+  transition: opacity .3s ease-in-out;
+}
+
+.fade-late-enter-active {
+  transition-delay: 1s;
+}
+
+.fade-late-enter {
+  opacity: 0;
+}
+.fade-late-enter-to {
+  opacity: 1;
+}
+
+.fade-late-leave {
+  opacity: 1;
+}
+.fade-late-leave-to {
+  opacity: 0;
+}
+
+// expand
 .expand-enter-active,
 .expand-leave-active {
   transition: transform .3s ease-in-out,

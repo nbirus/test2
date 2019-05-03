@@ -1,19 +1,12 @@
 <template>
-  <div class="filter-bar">
-
-    <form-generator 
-      class="filter-bar-form"
-      v-bind="$props"
-      v-model="model"
-      :active-model="activeModel"
-      :disabled="loading"
-      submit-on-mount
-      @submit="submit"
-    />
-
-    <slot/>
-
-  </div>
+  <form-generator 
+    v-bind="$props"
+    v-model="model"
+    :active-model="activeModel"
+    :disabled="loading"
+    submit-on-mount
+    @submit="submit"
+  />
 </template>
 
 <script>

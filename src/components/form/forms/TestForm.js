@@ -18,7 +18,7 @@ export const TestForm = [
   }, 
   {
     input: 'select',
-    id: 'employee_age',
+    id: 'employee_name',
     label: 'Select Input',
     inputProps: {
       placeholder: 'placeholder',
@@ -38,7 +38,7 @@ export const TestForm = [
 
 export const TestModel = {
   id: '',
-  employee_age: [],
+  employee_name: [],
 }
 
 function validatePass(rule, value, callback) {
