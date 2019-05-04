@@ -1,5 +1,5 @@
 <script>
-import { objectSearch } from '@/services/SearchService'
+import { objectSearch, objectSort } from '@/services/SearchService'
 import { debounce } from 'lodash'
 
 export default {
@@ -8,6 +8,8 @@ export default {
     data: Array,
     dataKey: String,
     params: Object,
+    sort: Object,
+    pagination: Object,
     disabled: Boolean,
     debounce: {
       type: Number,
@@ -17,14 +19,17 @@ export default {
   data() {
     return {
       request: undefined,
-      filteredData: undefined,
+      returnData: undefined,
       loading: false,
     }
   },
   computed: {
     updateWatcher() {
       // watch for change in any of these
-      return JSON.stringify(this.params) + this.dataKey
+      return JSON.stringify(this.pagination)
+        + JSON.stringify(this.sort) 
+        + JSON.stringify(this.params) 
+        + this.dataKey
     },
   },
   created() {
@@ -44,23 +49,42 @@ export default {
         this.request(this.params)
       }
     },
-    getData(data) {
-      return this.dataKey 
-        ? this.$h.get(data, this.dataKey)
-        : this.data
-    },
+
     async _request(params) {
-      const data = this.getData(this.data)
       try {
         this.loading = true
-        this.filteredData = await objectSearch(data, params)
+        let { paginatedData, filteredData } = await this.getData(this.data, params)
+        this.returnData = paginatedData
         this.loading = false
+
+        this.$emit('resolve', {
+          data: paginatedData,
+          total: filteredData.length,
+        })
       }
       catch(e) {
         console.log(e);
-        this.filteredData = data
+        this.returnData = []
         this.loading = false
       }
+    },
+
+    async getData(data, params) {
+      const keyData = this.$h.get(data, this.dataKey, data)
+      const filteredData = await objectSearch(keyData, params)
+      const sortedData = await objectSort(filteredData, this.sort)
+      const paginatedData = this.paginate(this.$h.cloneDeep(sortedData))
+
+      return {
+        filteredData,
+        paginatedData,
+      }
+    },
+    paginate(data) {
+      if (this.$h.truthy(this.pagination)) {
+        return data.splice(this.pagination.from, this.pagination.size)
+      }
+      else return data
     },
   },
   watch: {
@@ -70,7 +94,7 @@ export default {
     if (this.$scopedSlots.default !== undefined) {
       return this.$scopedSlots.default({
         _state: {
-          data: this.filteredData,
+          data: this.returnData,
           loading: this.loading,
           error: undefined,
         },

@@ -26,9 +26,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.pagination-bar {
-  margin: 2rem 0;
-}
-</style>

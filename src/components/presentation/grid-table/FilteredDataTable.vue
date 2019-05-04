@@ -3,14 +3,15 @@
     v-bind="$attrs"
     v-on="$listeners" 
     v-slot="{ _state, _refresh }"
-    :params="params" 
+    :params="params"
+    :sort="sort"
     :pagination="$pagination"
     :resolve="onResolve"
   >
     <state-handler v-bind="_state" ignore-loading keep-response-alive>
       <expand-container class="filtered-data-table" v-bind="{ expanded, collapse }" :class="{ expanded }">
       
-        <filter-bar 
+        <filter-bar
           class="filtered-data-table-form"
           v-bind="$attrs" 
           :loading="_state.loading" 
@@ -30,6 +31,7 @@
           v-on="$listeners"
           width="100"
           fit
+          @sort="onSort"
         />
 
         <pagination-bar
@@ -67,6 +69,7 @@ export default {
   },
   data() {
     return {
+      sort: {},
       params: {},
       expanded: false,
     }
@@ -82,6 +85,10 @@ export default {
     onResolve({ data, total }) {
       this.$setPaginationTotal(total)
     },
+    onSort(model) {
+      this.sort = model
+      this.$pageChange(0)
+    }
   }
 }
 </script>

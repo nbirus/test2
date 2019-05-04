@@ -1,8 +1,8 @@
 <template>
   <el-table
     style="width: 100%"
-    v-loading="loading"
     empty-text="No Data Found"
+    v-loading="loading"
     v-bind="{
       data,
       height,
@@ -14,10 +14,12 @@
       maxHeight,
       showSummary,
     }"
+    @sort-change="sortChange"
   >
     <el-table-column
       v-for="(header, index) in headers"
       :key="`${id}-table-column-${index}`"
+      sortable="custom"
       :prop="header.field"
       :label="header.headerName"
       :width="header.width"
@@ -47,6 +49,11 @@ export default {
     border: Boolean,
     showSummary: Boolean,
     loading: Boolean,
+  },
+  methods: {
+    sortChange(row) {
+      this.$emit('sort', { order: row.order, key: row.prop })
+    },
   },
 }
 </script>
