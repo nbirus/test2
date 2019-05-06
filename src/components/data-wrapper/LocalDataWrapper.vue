@@ -1,9 +1,10 @@
 <script>
-import { objectSearch, objectSort } from '@/services/SearchService'
+import { objectSearch, objectSort, objectPaginate } from '@/services/ObjectService'
 import { debounce } from 'lodash'
 
 export default {
   name: 'local-data-wrapper',
+  inheritAttrs: false,
   props: {
     data: Array,
     dataKey: String,
@@ -21,15 +22,19 @@ export default {
       request: undefined,
       returnData: undefined,
       loading: false,
+      error: undefined,
     }
   },
   computed: {
     updateWatcher() {
-      // watch for change in any of these
+      // make use of cacheing to watch multiple objects
       return JSON.stringify(this.pagination)
         + JSON.stringify(this.sort) 
         + JSON.stringify(this.params) 
         + this.dataKey
+    },
+    activeData() {
+      return this.$h.get(this.data, this.dataKey, this.data)
     },
   },
   created() {
@@ -49,43 +54,24 @@ export default {
         this.request(this.params)
       }
     },
-
-    async _request(params) {
-      try {
-        this.loading = true
-        let { paginatedData, filteredData } = await this.getData(this.data, params)
-        this.returnData = paginatedData
-        this.loading = false
-
-        this.$emit('resolve', {
-          data: paginatedData,
-          total: filteredData.length,
-        })
-      }
-      catch(e) {
-        console.log(e);
-        this.returnData = []
-        this.loading = false
-      }
+    _request(params) {
+      objectSearch(this.activeData, params)
+        .then(result => objectSort(result, this.sort))
+        .then(result => objectPaginate(result, this.pagination))
+        .then(this.onResolve)
+        .catch(this.onError)
     },
 
-    async getData(data, params) {
-      const keyData = this.$h.get(data, this.dataKey, data)
-      const filteredData = await objectSearch(keyData, params)
-      const sortedData = await objectSort(filteredData, this.sort)
-      const paginatedData = this.paginate(this.$h.cloneDeep(sortedData))
+    onResolve({ data, total }) {
+      this.returnData = data
+      this.loading = false
+      this.$emit('resolve', { data, total })
+    },
+    onError(error) {
+      this.error = error
+      this.loading = false
+    },
 
-      return {
-        filteredData,
-        paginatedData,
-      }
-    },
-    paginate(data) {
-      if (this.$h.truthy(this.pagination)) {
-        return data.splice(this.pagination.from, this.pagination.size)
-      }
-      else return data
-    },
   },
   watch: {
     'updateWatcher': 'makeRequest'

@@ -3,11 +3,14 @@
     <app-header></app-header>
     <app-body></app-body>
     <app-footer></app-footer>
-    <portal-target name="modal"></portal-target>
+    <portal-target name="modal" />
+    <portal-target name="expand" />
   </div>
 </template>
 
 <script>
+
+// main
 import AppHeader from '@/views/page/AppHeader'
 import AppBody from '@/views/page/AppBody'
 import AppFooter from '@/views/page/AppFooter'

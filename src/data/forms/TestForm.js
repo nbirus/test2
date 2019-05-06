@@ -1,8 +1,8 @@
-export const TestForm = [
+export let TestForm = [
   {
     input: 'text',
-    id: 'id',
-    label: 'Test Input',
+    id: '_keyword',
+    label: 'Keyword',
     wrapper: 'default',
     wrapperProps: {},
     inputProps: {
@@ -19,7 +19,7 @@ export const TestForm = [
   {
     input: 'select',
     id: 'employee_name',
-    label: 'Select Input',
+    label: 'Name',
     inputProps: {
       placeholder: 'placeholder',
       multiple: true,
@@ -37,7 +37,7 @@ export const TestForm = [
 ]
 
 export const TestModel = {
-  id: '',
+  _keyword: 'test',
   employee_name: [],
 }
 

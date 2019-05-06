@@ -2,12 +2,12 @@
   <div class="page dashboard-page">
 
     <!-- widget with local data -->
-    <!-- <test-widget
+    <test-widget
       class="test-class"
       id="widget"
       header="Widget Header"
       :data="gridModel"
-    /> -->
+    />
 
     <!-- widget with resource -->
     <!-- <test-widget
@@ -81,7 +81,7 @@ import DataGrid from '@/components/presentation/grid-table/base/DataGrid'
 import DataTable from '@/components/presentation/grid-table/base/DataTable'
 import FilteredDataTable from '@/components/presentation/grid-table/FilteredDataTable'
 import FormGenerator from '@/components/form/FormGenerator'
-import { TestForm, TestModel } from '@/components/form/forms/TestForm'
+import { TestForm, TestModel } from '@/data/forms/TestForm'
 import Modal from '@/components/presentation/modal/Modal'
 import TestWidget from '@/components/presentation/widgets/TestWidget'
 import Static from '@/data/Static'

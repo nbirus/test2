@@ -1,33 +1,32 @@
-<template functional>
+<template>
   <div>
-
-    <!-- backdrop -->
-    <transition name="fade">
-      <div 
-        class="backdrop" 
-        v-if="props.expanded"
-        :key="props.expanded"
-        @click="props.collapse" 
-      ></div>
-    </transition>
-
-    <!-- slot -->
-    <transition name="expand" mode="out-in">
-      <div :class="[data.staticClass, data.class, { 'expanded': props.expanded }]" :key="props.expanded">
-        <slot></slot>
-      </div>
-    </transition>
-    
+  <!-- <el-dialog :visible="visible"> -->
+    <!-- <portal-target name="expand" @change="change" /> -->
+  <!-- </el-dialog> -->
   </div>
 </template>
 
-<style lang="scss" scoped>
-.backdrop {
-  position: fixed;
-  z-index: 99;
-  top: 0; left: 0; right: 0; bottom: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: fade-out(black, .9);
+<script>
+import { Dialog } from 'element-ui'
+export default {
+  name: 'expand-container',
+  components: {
+    ElDialog: Dialog,
+  },
+  data() {
+    return {
+      visible: false,
+    }
+  },
+  methods: {
+    change(change) {
+      console.log(change);
+      this.visible = change
+    }
+  }
 }
+</script>
+
+<style>
+
 </style>

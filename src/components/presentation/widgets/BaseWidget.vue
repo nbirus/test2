@@ -1,6 +1,6 @@
 <template>
   <data-wrapper v-bind="$attrs" v-slot="{ _state, _refresh }" v-on="$listeners">
-    <expand-container class="widget" :expanded="expanded" :collapse="collapse" :class="widgetClass(_state)">
+    <expand-wrapper class="widget" :class="_state" v-model="expanded">
 
       <!-- header -->
       <slot name="header"/>
@@ -14,23 +14,23 @@
       />
 
       <!-- body -->
-      <slot 
+      <slot
         name="body"
         :_state="_state" 
         :_refresh="_refresh"
-      />      
+      />
 
-    </expand-container>
+    </expand-wrapper>
   </data-wrapper>
 </template>
 
 <script>
-import ExpandContainer from '@/components/presentation/expand/ExpandContainer'
+import ExpandWrapper from '@/components/presentation/expand/ExpandWrapper'
 
 export default {
   name: 'base-widget',
   inheritAttrs: false,
-  components: { ExpandContainer },
+  components: { ExpandWrapper },
   data() {
     return {
       expanded: false,

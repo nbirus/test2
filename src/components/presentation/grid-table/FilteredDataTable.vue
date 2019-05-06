@@ -9,11 +9,11 @@
     :resolve="onResolve"
   >
     <state-handler v-bind="_state" ignore-loading keep-response-alive>
-      <expand-container class="filtered-data-table" v-bind="{ expanded, collapse }" :class="{ expanded }">
-      
+      <expand-container class="filtered-data-table" v-model="expanded">
+
         <filter-bar
           class="filtered-data-table-form"
-          v-bind="$attrs" 
+          v-bind="$attrs"
           :loading="_state.loading" 
           @submit="formSubmit"
         />
@@ -77,17 +77,17 @@ export default {
   methods: {
     formSubmit(params) {
       this.params = Object.freeze(params)
-      this.$pageChange(0)
+      this.$pageChange(1)
     },
     collapse() {
       this.expanded = false
     },
-    onResolve({ data, total }) {
+    onResolve({ total }) {
       this.$setPaginationTotal(total)
     },
     onSort(model) {
       this.sort = model
-      this.$pageChange(0)
+      this.$pageChange(1)
     }
   }
 }

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import RequestMixin from '@/mixins/RequestMixin'
-import AsyncDataWrapper from '@/components/data/AsyncDataWrapper'
+import AsyncDataWrapper from '@/components/data-wrapper/AsyncDataWrapper'
 import mockAxios from 'jest-mock-axios'
 import waitForExpect from 'wait-for-expect'
 import { requestResource } from '@/services/RequestService'

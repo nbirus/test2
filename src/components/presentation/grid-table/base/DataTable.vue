@@ -32,6 +32,7 @@ import { Table, TableColumn } from 'element-ui'
 
 export default {
   name: 'data-table',
+  inheritAttrs: false,
   components: {
     ElTable: Table,
     ElTableColumn: TableColumn,

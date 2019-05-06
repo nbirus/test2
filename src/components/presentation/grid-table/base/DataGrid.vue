@@ -24,6 +24,7 @@ import debounce from 'lodash/debounce'
 
 export default {
   name: 'grid',
+  inheritAttrs: false,
   components: { AgGridVue },
   props: {
     data: {

@@ -1,7 +1,7 @@
 export default {
   data() {
     return {
-      PaginationMixin_page: 0,
+      PaginationMixin_page: 1,
       PaginationMixin_size: 20,
       PaginationMixin_total: 0,
     }
@@ -10,9 +10,9 @@ export default {
     $pagination() {
       const page = this.PaginationMixin_page
       const size = this.PaginationMixin_size
-      const from = page * size
-
-      return { size, from }
+      const from = (page - 1) * size
+      
+      return { from, size }
     },
     $pageState() {
       return {
@@ -28,7 +28,7 @@ export default {
     },
     $pageSizeChange(size) {
       this.PaginationMixin_size = size
-      this.$pageChange(0)
+      this.$pageChange(1)
     },
     $setPaginationTotal(total) {
       this.PaginationMixin_total = total
