@@ -6,10 +6,13 @@
     :params="params"
     :sort="sort"
     :pagination="$pagination"
-    :resolve="onResolve"
+    @resolve="onResolve"
+    @reject="onReject"
   >
     <state-handler v-bind="_state" ignore-loading keep-response-alive>
-      <expand-container class="filtered-data-table" v-model="expanded">
+      <expand-wrapper v-model="expanded">
+
+        <div class="filtered-data-table">
 
         <filter-bar
           class="filtered-data-table-form"
@@ -45,7 +48,9 @@
           Expand
         </btn>
 
-      </expand-container>
+        </div>
+
+      </expand-wrapper>
     </state-handler>
   </data-wrapper>
 </template>
@@ -54,7 +59,7 @@
 import DataTable from '@/components/presentation/grid-table/base/DataTable'
 import FilterBar from '@/components/presentation/grid-table/helper/FilterBar'
 import PaginationBar from '@/components/presentation/grid-table/helper/PaginationBar'
-import ExpandContainer from '@/components/presentation/expand/ExpandContainer'
+import ExpandWrapper from '@/components/presentation/expand/ExpandWrapper'
 import PaginationMixin from '@/mixins/PaginationMixin'
 
 export default {
@@ -62,7 +67,7 @@ export default {
   inheritAttrs: false,
   mixins: [PaginationMixin],
   components: {
-    ExpandContainer,
+    ExpandWrapper,
     DataTable,
     FilterBar,
     PaginationBar,
@@ -84,6 +89,9 @@ export default {
     },
     onResolve({ total }) {
       this.$setPaginationTotal(total)
+    },
+    onReject(error) {
+      this.$emit('reject', error)
     },
     onSort(model) {
       this.sort = model

@@ -1,16 +1,3 @@
 body {
   font-family: 'Source Sans Pro';
 }
-
-.el-button {
-  padding: 1rem 2rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 0,
-              rgba(255, 255, 255, 0.3) 0 1px 5px 0 inset;
-
-  &:not(.el-button--default) {
-     font-weight: 700;
-  }
-  &:active {
-    box-shadow: none;
-  }
-}

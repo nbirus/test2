@@ -20,7 +20,7 @@ export default {
       this.$setState()
       return request(config)
         .then(this.$requestResolve)
-        .catch(this.$requestError)
+        .catch(this.$requestReject)
     },
 
     // preset 'requests' method, provide a resource along with any additional parmas
@@ -28,14 +28,18 @@ export default {
       this.$setState()
       return requestResource(resource, params)
         .then(this.$requestResolve)
-        .catch(this.$requestError)
+        .catch(this.$requestReject)
     },
 
-    $requestResolve(data) {
-      this.$setState(this.$getData(data), false, undefined)
+    $requestResolve(response) {
+      const data = this.$getData(response)
+      const total = this.$getTotal(response)
+      this.$setState(data, false, undefined)
+      this.$emit('resolve', { data, total })
     },
-    $requestError(error) {
+    $requestReject(error) {
       this.$setState(undefined, false, error)
+      this.$emit('reject', error)
     },
 
     // set state, set to new ref to trigger watchers
@@ -47,11 +51,15 @@ export default {
       }
     },
 
-    $getData(data) {
+    $getData(response) {
       return this.$h.truthy(this.dataKey)
-        ? this.$h.get(data, this.dataKey) 
-        : data
+        ? this.$h.get(response, this.dataKey) 
+        : response
     },
+    $getTotal(response) {
+      // TODO: figure out how to dynamically access total
+      return response.length
+    }
 
   }
 }

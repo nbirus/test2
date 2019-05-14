@@ -1,25 +1,9 @@
 <template>
-  <portal class="expand-wrapper-container" :class="{ expanded }" to="expand" :disabled="!expanded">
-    <slot></slot>
-    
-    <!-- backdrop -->
-    <!-- <transition name="fade">
-      <div 
-        class="backdrop"
-        v-if="expanded"
-        :key="expanded"
-        @click="$emit('change', false)"
-      ></div>
-    </transition> -->
-
-    <!-- <slot></slot> -->
-    <!-- slot -->
-    <!-- <transition name="expand" mode="out-in">
-      <div  :key="expanded">
-      </div>
-    </transition> -->
-    
-  </portal>
+  <transition name="expand" mode="out-in">
+    <portal :key="expanded" ref="expand" to="expand" :disabled="!expanded" slim>
+      <slot></slot>
+    </portal>
+  </transition>
 </template>
 
 <script>
@@ -35,13 +19,36 @@ export default {
   methods: {
     onChange(expanded) {
       if (expanded) {
+        this.addBackdrop()
         document.body.classList.add(modalBodyClass)
+        // this.$el.classList.add('el-dialog')
       }
       else {
+        removeBackdrop()
         document.body.classList.remove(modalBodyClass)
+        // this.$el.classList.remove('el-dialog')
       }
     },
-  } 
+    addBackdrop() {
+      const backdrop = getBackdrop()
+      backdrop.addEventListener('click', () => this.$emit('change', false))  // on background click, close the modal
+      document.body.insertAdjacentElement('beforeend', backdrop)
+    },
+  },
+  watch: {
+    'expanded': 'onChange'
+  }
+}
+
+function getBackdrop() {
+  let backdrop = document.createElement('div')
+  backdrop.setAttribute('class', 'v-modal')
+  backdrop.setAttribute('id', 'v-modal')
+  return backdrop
+}
+function removeBackdrop() {
+  let elem = document.getElementById('v-modal');
+  return elem.parentNode.removeChild(elem);
 }
 </script>
 

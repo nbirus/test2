@@ -19,8 +19,9 @@
     /> -->
 
     <!-- modal -->
-    <!-- <modal :visible.sync="visible">
-    </modal> -->
+    <modal :visible.sync="visible">
+      TEST
+    </modal>
 
     <!-- grid -->
     <!-- <data-grid
@@ -28,16 +29,18 @@
       :headers="headers"
     ></data-grid> -->
 
+
     <!-- dynamic table -->
     <filtered-data-table
       class="table"
-      :data='gridModel'
       submit-on-mount
-      :headers="headers"
       form-id="test"
+      :data='gridModel'
+      :headers="headers"
       :form="form"
       :form-model="model"
       :inline="true"
+      @reject="reject"
     />
 
     <!-- get data from an api -->
@@ -132,6 +135,10 @@ export default {
     },
     reset() {
     },
+    reject(test) {
+      console.log('REJECT');
+      console.log(test);
+    }
   }
 }
 </script>
